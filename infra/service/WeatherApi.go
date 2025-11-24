@@ -7,10 +7,9 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"os"
 )
 
-const WeatherApiPath = "http://api.weatherapi.com/v1/current.json?key=%s&q=%s"
+const WeatherApiPath = "http://api.weatherapi.com/v1/current.json?key=da812346cd9430d912195921252411&q=%s"
 
 type WeatherApi struct {
 	httpClient *http.Client
@@ -24,7 +23,7 @@ func NewWeatherApi(client *http.Client) *WeatherApi {
 
 func (b *WeatherApi) GetWeather(city string) (*external.WeatherApiResponse, error) {
 	encodedCity := url.QueryEscape(city)
-	formatedPath := fmt.Sprintf(WeatherApiPath, os.Getenv("WEATHER_API_KEY"), encodedCity)
+	formatedPath := fmt.Sprintf(WeatherApiPath, encodedCity)
 	resp, err := b.httpClient.Get(formatedPath)
 	if err != nil {
 		return nil, err
