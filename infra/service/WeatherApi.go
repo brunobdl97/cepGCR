@@ -9,7 +9,7 @@ import (
 	"net/url"
 )
 
-const WeatherApiPath = "http://api.weatherapi.com/v1/current.json?key=da812346cd9430d912195921252411&q=%s"
+const WeatherApiPath = "http://api.weatherapi.com/v1/current.json?key=1da812346cd9430d912195921252411&q=%s"
 
 type WeatherApi struct {
 	httpClient *http.Client

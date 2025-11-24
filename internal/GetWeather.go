@@ -26,17 +26,19 @@ func (h *GetWeatherHandler) Handle(w http.ResponseWriter, r *http.Request) {
 	cepResponse, err := infraService.NewViaCepApi(h.client).GetCep(cep.Get())
 	if err != nil {
 		http.Error(w, "cannot find zipcode", http.StatusNotFound)
+		return
 	}
 
 	weatherResponse, err := infraService.NewWeatherApi(h.client).GetWeather(cepResponse.Localidade)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusNotFound)
+		return
 	}
 
 	weatherConversion := NewWeather(weatherResponse.Current.TempC)
 
-	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
 	temp := WResponse{
 		TempC: weatherConversion.Celsius,
 		TempF: weatherConversion.Fahrenheit,
