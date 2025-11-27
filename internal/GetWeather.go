@@ -31,7 +31,7 @@ func (h *GetWeatherHandler) Handle(w http.ResponseWriter, r *http.Request) {
 
 	weatherResponse, err := infraService.NewWeatherApi(h.client).GetWeather(cepResponse.Localidade)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusNotFound)
+		http.Error(w, "cannot find zipcode", http.StatusNotFound)
 		return
 	}
 
